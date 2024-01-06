@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
-interface ButtonProps extends TouchableOpacityProps {
-    children: string;
-    onPress: TouchableOpacityProps['onPress'];
-}
-
 const styles = StyleSheet.create({
     text: {
         fontWeight: 'bold',
@@ -15,13 +10,18 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#8C52FF',
+        backgroundColor: '#EB6625',
         paddingHorizontal: 46,
         marginHorizontal: 16,
         borderRadius: 8,
         height: 40,
     }
 });
+
+interface ButtonProps extends TouchableOpacityProps {
+    children: string;
+    onPress: TouchableOpacityProps['onPress'];
+}
 
 const Button = ({
     children, 

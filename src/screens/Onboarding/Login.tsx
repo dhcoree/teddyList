@@ -1,10 +1,37 @@
 import { useEffect, useState } from 'react';
-import {Alert, StyleSheet, Text, View} from 'react-native';
+import {Alert, Image, StyleSheet, View} from 'react-native';
 import { useAppNavigation } from '../../utils/useAppNavigation';
-import Button from '../../components/Button';
-import MyTextInput from '../../components/TextInput';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import MyTextInput from '../../components/TextInput';
 import CheckBox from '../../components/CheckBox';
+import Button from '../../components/Button';
+import Spacer from '../../components/Spacer';
+//@ts-ignore
+import teddylogo from '../../assets/teddylogo.png'
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+  },
+  checkbox: {
+    alignSelf: 'center',
+  },
+  inputContainer: {
+    width: 300,
+    marginHorizontal: 32
+  },
+  logo: {
+    width: 80,
+    height: 80
+  }
+});
 
 const Home = () => {
   const [email, setEmail] = useState('');
@@ -12,6 +39,7 @@ const Home = () => {
   const [rememberUser, setRememberUser] = useState(false);
   const navigation = useAppNavigation();
 
+  //TODO: login fake com uso de asyncStorage para lembrar usuário logado
   const handleSignIn = async () => {
     // Lógica de login fake
     if (email === 'teddy@mail.com' && password === '123456') {
@@ -44,60 +72,46 @@ const Home = () => {
     checkUserLoggedIn();
   }, []);
 
-  // const goToHome = () => {
-  //   // navigation.goBack();
-  //   navigation.navigate('Onboarding', {
-  //     screen: 'Home'
-  //   })
-  // }
-
    return (
     <View style={styles.container}>
-      <Text>Login</Text>
-
-      <MyTextInput
-        placeholder='e-mail'
-        value={email}
-        onChangeText={setEmail}
+      <Image
+        style={styles.logo}
+        resizeMode='contain'
+        source={teddylogo}
       />
 
-      <MyTextInput
-        secureTextEntry
-        placeholder='senha'
-        value={password}
-        onChangeText={setPassword}
-        maxLength={12}
-      />
+      <Spacer size={12}/>
 
-      <View style={styles.checkboxContainer}>
-        <CheckBox
-          value={rememberUser}
-          onChange={setRememberUser}
-          checked={rememberUser}
-          label='Lembrar usuário'
+      <View style={styles.inputContainer}>
+        <MyTextInput
+          placeholder='e-mail'
+          value={email}
+          onChangeText={setEmail}
         />
+
+        <MyTextInput
+          secureTextEntry
+          placeholder='senha'
+          value={password}
+          onChangeText={setPassword}
+          maxLength={12}
+        />
+
+        <View style={styles.checkbox}>
+          <CheckBox
+            value={rememberUser}
+            onChange={setRememberUser}
+            checked={rememberUser}
+            label='Lembrar usuário'
+          />
+        </View>
       </View>
 
-      <Button onPress={handleSignIn}>Sign in</Button>
+      <Spacer size={18}/>
+
+      <Button onPress={handleSignIn}>Entrar</Button>
     </View>
   );
 };
 
 export default Home;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 16,
-    marginVertical: 16,
-  },
-  checkboxContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  checkbox: {
-    alignSelf: 'center',
-  },
-});

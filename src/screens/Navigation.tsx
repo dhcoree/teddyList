@@ -9,8 +9,8 @@ export type RootStackParamList = {
 };
 
 export type OnboardingStackParamList = {
-    Home: undefined;
     Login: undefined;
+    Home: undefined;
 };
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
