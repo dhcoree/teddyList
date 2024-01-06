@@ -41,36 +41,40 @@ const LoginScreen = () => {
 
   //TODO: login fake com uso de asyncStorage para lembrar usuário logado
   const handleSignIn = async () => {
-    // Lógica de login fake
-    if (email === 'teddy@mail.com' && password === '123456') {
-      if (rememberUser) {
-        // Armazenar dados do usuário no AsyncStorage
-        await AsyncStorage.setItem('userToken', 'fake_token');
-        await AsyncStorage.setItem('userEmail', email);
-      } else {
-        // Limpar dados do usuário no AsyncStorage se não quiser lembrar
-        await AsyncStorage.removeItem('userToken');
-        await AsyncStorage.removeItem('userEmail');
-      }
-      navigation.navigate('Onboarding', { screen: 'CompanyListScreen' });
+  // Lógica de login fake
+  if (email === 'teddy@mail.com' && password === '123456') {
+    if (rememberUser) {
+      // Armazenar dados do usuário no AsyncStorage
+      await AsyncStorage.setItem('userToken', 'fake_token');
+      await AsyncStorage.setItem('userEmail', email);
+      await AsyncStorage.setItem('rememberUser', 'true');
     } else {
-      // Tratar caso as credenciais estejam incorretas
-      Alert.alert('Credenciais inválidas. Por favor, tente novamente.');
+      // Limpar dados do usuário no AsyncStorage se não quiser lembrar
+      await AsyncStorage.removeItem('userToken');
+      await AsyncStorage.removeItem('userEmail');
+      await AsyncStorage.removeItem('rememberUser');
     }
-  };
+    navigation.navigate('Onboarding', { screen: 'CompanyListScreen' });
+  } else {
+    Alert.alert('Credenciais inválidas. Por favor, tente novamente.');
+  }
+};
 
    // Verifica se o usuário já está logado
   useEffect(() => {
-    const checkUserLoggedIn = async () => {
-      const userToken = await AsyncStorage.getItem('userToken');
-      if (userToken) {
-        // Navegar diretamente para a tela inicial se o usuário estiver logado
-        navigation.navigate('Onboarding', { screen: 'CompanyListScreen' });
-      }
-    };
+  const checkUserLoggedIn = async () => {
+    const userToken = await AsyncStorage.getItem('userToken');
+    const userEmail = await AsyncStorage.getItem('userEmail');
+    const rememberUser = await AsyncStorage.getItem('rememberUser');
 
-    checkUserLoggedIn();
-  }, []);
+    if (userToken && userEmail && rememberUser === 'true') {
+      // Navegar para a tela inicial se o usuário estiver logado e 'rememberUser' estiver marcado
+      navigation.navigate('Onboarding', { screen: 'CompanyListScreen' });
+    }
+  };
+
+  checkUserLoggedIn();
+}, [navigation])
 
   return (
       <View style={styles.container}>
