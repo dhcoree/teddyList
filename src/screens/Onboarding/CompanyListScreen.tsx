@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { FlatList, StyleSheet, Text, View, TouchableOpacity, Modal, TextInput, Button as RNButton, Alert, SafeAreaView } from 'react-native';
 import { Company, CompanyContext } from '../../context/CompanyContext';
+import Spacer from '../../components/Spacer';
+import { useAppNavigation } from '../../utils/useAppNavigation';
 
 // Estilos e outras partes do seu código...
 
@@ -25,11 +27,16 @@ const styles = StyleSheet.create({
 });
 
 const CompanyListScreen: React.FC = () => {
-  const { companies, addCompany, updateCompany, deleteCompany } = useContext(CompanyContext);
+  const { 
+    companies, 
+    addCompany, 
+    updateCompany, 
+    deleteCompany } = useContext(CompanyContext);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalMode, setModalMode] = useState<'create' | 'edit' | ''>('');
   const [modalCompanyName, setModalCompanyName] = useState('');
   const [selectedCompanyId, setSelectedCompanyId] = useState('');
+  const navigation = useAppNavigation();
 
   const handleCreate = () => {
     setModalMode('create');
@@ -67,9 +74,9 @@ const CompanyListScreen: React.FC = () => {
     setIsModalVisible(false);
   };
 
-  // const handleDelete = (companyId: string) => {
-  //   deleteCompany(companyId);
-  // };
+  const goToPartnerCompany = () => {
+    navigation.navigate('Onboarding', {screen: 'PartnerListScreen'})
+  }
 
   const handleDelete = (companyId: string) => {
     Alert.alert(
@@ -96,6 +103,12 @@ const CompanyListScreen: React.FC = () => {
         {/* Botão para criar e editar */}
         <TouchableOpacity onPress={handleCreate}>
           <Text>Criar Empresa</Text>
+        </TouchableOpacity>
+
+        <Spacer size={10}/>
+
+        <TouchableOpacity onPress={goToPartnerCompany}>
+          <Text>Ir para Partner</Text>
         </TouchableOpacity>
 
         <FlatList
