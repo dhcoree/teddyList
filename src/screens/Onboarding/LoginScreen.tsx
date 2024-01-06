@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {Alert, Image, StyleSheet, View} from 'react-native';
+import {Alert, Image, SafeAreaView, StyleSheet, View} from 'react-native';
 import { useAppNavigation } from '../../utils/useAppNavigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyTextInput from '../../components/TextInput';
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const Home = () => {
+const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberUser, setRememberUser] = useState(false);
@@ -52,7 +52,7 @@ const Home = () => {
         await AsyncStorage.removeItem('userToken');
         await AsyncStorage.removeItem('userEmail');
       }
-      navigation.navigate('Onboarding', { screen: 'Home' });
+      navigation.navigate('Onboarding', { screen: 'CompanyListScreen' });
     } else {
       // Tratar caso as credenciais estejam incorretas
       Alert.alert('Credenciais inválidas. Por favor, tente novamente.');
@@ -65,53 +65,53 @@ const Home = () => {
       const userToken = await AsyncStorage.getItem('userToken');
       if (userToken) {
         // Navegar diretamente para a tela inicial se o usuário estiver logado
-        navigation.navigate('Onboarding', { screen: 'Home' });
+        navigation.navigate('Onboarding', { screen: 'CompanyListScreen' });
       }
     };
 
     checkUserLoggedIn();
   }, []);
 
-   return (
-    <View style={styles.container}>
-      <Image
-        style={styles.logo}
-        resizeMode='contain'
-        source={teddylogo}
-      />
-
-      <Spacer size={12}/>
-
-      <View style={styles.inputContainer}>
-        <MyTextInput
-          placeholder='e-mail'
-          value={email}
-          onChangeText={setEmail}
+  return (
+      <View style={styles.container}>
+        <Image
+          style={styles.logo}
+          resizeMode='contain'
+          source={teddylogo}
         />
 
-        <MyTextInput
-          secureTextEntry
-          placeholder='senha'
-          value={password}
-          onChangeText={setPassword}
-          maxLength={12}
-        />
+        <Spacer size={12}/>
 
-        <View style={styles.checkbox}>
-          <CheckBox
-            value={rememberUser}
-            onChange={setRememberUser}
-            checked={rememberUser}
-            label='Lembrar usuário'
+        <View style={styles.inputContainer}>
+          <MyTextInput
+            placeholder='e-mail'
+            value={email}
+            onChangeText={setEmail}
           />
+
+          <MyTextInput
+            secureTextEntry
+            placeholder='senha'
+            value={password}
+            onChangeText={setPassword}
+            maxLength={12}
+          />
+
+          <View style={styles.checkbox}>
+            <CheckBox
+              value={rememberUser}
+              onChange={setRememberUser}
+              checked={rememberUser}
+              label='Lembrar usuário'
+            />
+          </View>
         </View>
+
+        <Spacer size={18}/>
+
+        <Button onPress={handleSignIn}>Entrar</Button>
       </View>
-
-      <Spacer size={18}/>
-
-      <Button onPress={handleSignIn}>Entrar</Button>
-    </View>
   );
 };
 
-export default Home;
+export default LoginScreen;

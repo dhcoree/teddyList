@@ -7,12 +7,11 @@ const App = () => {
   return ( 
     //@ts-ignore
     <CompanyProvider>
-       <NavigationContainer>
+      <NavigationContainer>
         <RootNavigator />
       </NavigationContainer> 
     </CompanyProvider>
-   
   );
 }
- 
+
 export default App;

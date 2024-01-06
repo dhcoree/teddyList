@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { ReactNode } from 'react';
 import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 });
 
 interface ButtonProps extends TouchableOpacityProps {
-    children: string;
+    children: ReactNode;
     onPress: TouchableOpacityProps['onPress'];
 }
 

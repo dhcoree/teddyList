@@ -1,5 +1,5 @@
-import Home from "./Onboarding/Home";
-import Login from "./Onboarding/Login";
+import CompanyListScreen from "./Onboarding/CompanyListScreen";
+import LoginScreen from "./Onboarding/LoginScreen";
 
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -10,7 +10,7 @@ export type RootStackParamList = {
 
 export type OnboardingStackParamList = {
     Login: undefined;
-    Home: undefined;
+    CompanyListScreen: undefined;
 };
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -18,12 +18,18 @@ const OnboardingStack = createNativeStackNavigator<OnboardingStackParamList>();
 
 const OnboardingNavigator = () => {
     return (
-        <OnboardingStack.Navigator
-        screenOptions={{
+        <OnboardingStack.Navigator screenOptions={{
                 headerShown: false
         }}>
-            <OnboardingStack.Screen name="Login" component={Login} />
-            <OnboardingStack.Screen name="Home" component={Home} />
+            <OnboardingStack.Screen 
+                name="Login" 
+                component={LoginScreen} 
+            />
+            <OnboardingStack.Screen 
+                name="CompanyListScreen" 
+                component={CompanyListScreen} 
+                // options={{ headerShown: true}}
+            />
         </OnboardingStack.Navigator>
     )
 };

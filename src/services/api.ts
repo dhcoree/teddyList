@@ -13,3 +13,14 @@ export const fetchCompanies = async () => {
         throw error;
     }
 };
+
+// const BASE_URL = 'https://644060ba792fe886a88de1b9.mockapi.io/v1/test';
+
+// export const fetchPartnersData = async () => {
+//     try {
+//         const response = await axios.get(`${BASE_URL}/partners`);
+//         return response.data;
+//     } catch (error) {
+//         throw new Error('Erro ao buscar dados dos parceiros');
+//     }
+// };

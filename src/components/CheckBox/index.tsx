@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
   checkedSymbol: {
     fontSize: 14,
-    color: 'black',
+    color: '#EB6625',
   },
 });
 
