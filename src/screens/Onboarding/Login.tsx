@@ -11,8 +11,8 @@ import teddylogo from '../../assets/teddylogo.png'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
     flex: 1,
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 16,
@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 32
   },
   logo: {
-    width: 80,
-    height: 80
+    width: 120,
+    height: 120
   }
 });
 
@@ -59,7 +59,7 @@ const Home = () => {
     }
   };
 
-   // Verificar se o usuário já está logado
+   // Verifica se o usuário já está logado
   useEffect(() => {
     const checkUserLoggedIn = async () => {
       const userToken = await AsyncStorage.getItem('userToken');
