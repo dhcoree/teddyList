@@ -22,8 +22,8 @@ const OnboardingNavigator = () => {
         screenOptions={{
                 headerShown: false
         }}>
-            <OnboardingStack.Screen name="Home" component={Home} />
             <OnboardingStack.Screen name="Login" component={Login} />
+            <OnboardingStack.Screen name="Home" component={Home} />
         </OnboardingStack.Navigator>
     )
 };
