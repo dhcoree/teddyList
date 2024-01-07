@@ -4,7 +4,7 @@ import { fetchCompanies } from '../services/api';
 export type Company = {
   createdAt: string;
   companyName: string;
-  collaboratorsCount: number;
+  collaboratorsCount: string;
   isActive: boolean;
   lastSubmit: string;
   id: string;

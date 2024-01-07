@@ -62,18 +62,25 @@ const CompanyListScreen: React.FC = () => {
   const [modalMode, setModalMode] = useState<'create' | 'edit' | ''>('');
   const [modalCompanyName, setModalCompanyName] = useState('');
   const [selectedCompanyId, setSelectedCompanyId] = useState('');
+  const [modalCollaboratorsCount, setModalCollaboratorsCount] = useState('');
   const navigation = useAppNavigation();
 
   const handleCreate = () => {
     setModalMode('create');
     setModalCompanyName('');
+    setModalCollaboratorsCount('');
     setIsModalVisible(true);
   };
 
-  const handleEdit = (companyId: string, companyName: string) => {
+  const handleEdit = (
+    companyId: string, 
+    companyName: string,
+    collaboratorsCount: string
+    ) => {
     setSelectedCompanyId(companyId);
     setModalMode('edit');
     setModalCompanyName(companyName);
+    setModalCollaboratorsCount(collaboratorsCount)
     setIsModalVisible(true);
   };
 
@@ -82,7 +89,7 @@ const CompanyListScreen: React.FC = () => {
       addCompany({
         id: String(Date.now()), // Você pode usar um ID único aqui, dependendo do seu backend
         companyName: modalCompanyName,
-        collaboratorsCount: 0, // Defina o valor padrão
+        collaboratorsCount: modalCollaboratorsCount, // Defina o valor padrão
         isActive: true, // Defina o valor padrão
         createdAt: new Date().toISOString(), // Defina a data atual
         lastSubmit: new Date().toISOString(),
@@ -91,7 +98,7 @@ const CompanyListScreen: React.FC = () => {
       updateCompany({
         id: selectedCompanyId,
         companyName: modalCompanyName,
-        collaboratorsCount: 0, // Você pode atualizar este valor se necessário
+        collaboratorsCount: modalCollaboratorsCount, // Você pode atualizar este valor se necessário
         isActive: true, // Você pode atualizar este valor se necessário
         createdAt: '', // Você pode atualizar este valor se necessário
         lastSubmit: new Date().toISOString(),
@@ -162,7 +169,8 @@ const CompanyListScreen: React.FC = () => {
               <Text>Colaboradores: {item.collaboratorsCount}</Text>
 
               <View style={styles.actionButtons}>
-                <TouchableOpacity onPress={() => handleEdit(item.id, item.companyName)}>
+                <TouchableOpacity onPress={() => 
+                  handleEdit(item.id, item.companyName, item.collaboratorsCount)}>
                   <Text style={styles.textEdit}>Editar</Text>
                 </TouchableOpacity>
 
@@ -194,6 +202,12 @@ const CompanyListScreen: React.FC = () => {
               placeholder="Nome da Empresa"
               value={modalCompanyName}
               onChangeText={setModalCompanyName}
+            />
+            <MyTextInput
+              placeholder="Quantidade colaboradores"
+              keyboardType="numeric"
+              value={String(modalCollaboratorsCount)}
+              onChangeText={setModalCollaboratorsCount}
             />
             <View style={{flexDirection: 'row'}}>
               <Button onPress={handleSave}>Salvar</Button>
