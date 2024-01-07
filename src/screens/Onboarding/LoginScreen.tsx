@@ -42,7 +42,7 @@ const LoginScreen = () => {
   //TODO: login fake com uso de asyncStorage para lembrar usuário logado
   const handleSignIn = async () => {
   // Lógica de login fake
-  if (email === 'teddy@mail.com' && password === '123456') {
+  if (email === 'teddy@mail.com' && password === '1234') {
     if (rememberUser) {
       // Armazenar dados do usuário no AsyncStorage
       await AsyncStorage.setItem('userToken', 'fake_token');
@@ -54,7 +54,7 @@ const LoginScreen = () => {
       await AsyncStorage.removeItem('userEmail');
       await AsyncStorage.removeItem('rememberUser');
     }
-    navigation.navigate('Onboarding', { screen: 'CompanyListScreen' });
+    navigation.navigate('Onboarding', { screen: 'Main' });
   } else {
     Alert.alert('Credenciais inválidas. Por favor, tente novamente.');
   }
@@ -69,7 +69,7 @@ const LoginScreen = () => {
 
     if (userToken && userEmail && rememberUser === 'true') {
       // Navegar para a tela inicial se o usuário estiver logado e 'rememberUser' estiver marcado
-      navigation.navigate('Onboarding', { screen: 'CompanyListScreen' });
+      navigation.navigate('Onboarding', { screen: 'Main' });
     }
   };
 

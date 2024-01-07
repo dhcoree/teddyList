@@ -45,7 +45,7 @@ const CompanyContext = () => {
                 renderItem={({ item }) => (
                     <View style={styles.partnerItem}>
                         <Text style={styles.partnerName}>{item.name}</Text>
-                        <Text>Description: {item.description}</Text>
+                        <Text>Descrição: {item.description}</Text>
                         {/* Adicione mais campos conforme necessário */}
                     </View>
                 )}
