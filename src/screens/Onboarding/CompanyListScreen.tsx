@@ -69,8 +69,8 @@ const CompanyListScreen: React.FC = () => {
   const [searchText, setSearchText] = useState('');
 
   const filteredPartners = companies.filter(
-        (companies) =>
-            companies.companyName.toLowerCase().includes(searchText.toLowerCase())
+      (companies) =>
+          companies.companyName.toLowerCase().includes(searchText.toLowerCase())
     );
 
   const handleCreate = () => {
