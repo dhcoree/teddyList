@@ -6,6 +6,7 @@ import { useAppNavigation } from '../../utils/useAppNavigation';
 import Button from '../../components/Button';
 import MyTextInput from '../../components/TextInput';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,12 +40,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     justifyContent: 'space-between',
     paddingBottom: 8,
-  },
-  textStyle: {
-    color: '#1A261C'
+    marginHorizontal: 16,
   },
   textEdit: {color: "#396E9C"},
-  textExclude: {color: "#BF7E6F"}
+  textExclude: {color: "#BF7E6F"},
+  colorText: {color: "#1A261C"},
+  textHeader: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+  },
+  
 });
 
 const CompanyListScreen: React.FC = () => {
@@ -116,34 +121,39 @@ const CompanyListScreen: React.FC = () => {
   };
 
   const handleLogOff = async () => {
-  try {
-    // Remove os dados de autenticação do AsyncStorage
-    await AsyncStorage.removeItem('userToken');
-    await AsyncStorage.removeItem('userEmail');
-    await AsyncStorage.removeItem('rememberUser');
+    try {
+      await AsyncStorage.removeItem('userToken');
+      await AsyncStorage.removeItem('userEmail');
+      await AsyncStorage.removeItem('rememberUser');
 
-    // Navega para a tela de login
-    navigation.navigate('Onboarding', {screen: 'Login'});
-  } catch (error) {
-    console.error('Erro ao fazer logoff:', error);
+      navigation.navigate('Onboarding', {screen: 'Login'});
+    } catch (error) {
+      console.error('Erro ao fazer logoff:', error);
+    }
   }
-}
 
   return (
       <View style={styles.container}>
         <View style={styles.headerContent}>
           <TouchableOpacity onPress={handleCreate}>
-          <Text style={styles.textStyle}>Criar Empresa</Text>
-        </TouchableOpacity>
+            <View style={styles.textHeader}>
+              <Icon name='office-building-cog-outline' size={16}/>
+              <Spacer size={4} />
+              <Text style={styles.colorText}>Criar Empresa</Text>
+            </View>
+          </TouchableOpacity>
 
         <Spacer size={10}/>
 
         <TouchableOpacity onPress={handleLogOff}>
-          <Text style={styles.textStyle}>Sair</Text>
+          <View style={styles.textHeader}>
+            <Text style={styles.colorText}>Sair</Text>
+            <Spacer size={4} />
+            <Icon name='exit-to-app' size={16}/>
+          </View>
         </TouchableOpacity>
         </View>
         
-
         <FlatList
           data={companies}
           renderItem={({ item }) => (
@@ -151,7 +161,6 @@ const CompanyListScreen: React.FC = () => {
               <Text style={styles.companyName}>{item.companyName}</Text>
               <Text>Colaboradores: {item.collaboratorsCount}</Text>
 
-              {/* Botão para editar e excluir */}
               <View style={styles.actionButtons}>
                 <TouchableOpacity onPress={() => handleEdit(item.id, item.companyName)}>
                   <Text style={styles.textEdit}>Editar</Text>
@@ -171,13 +180,11 @@ const CompanyListScreen: React.FC = () => {
           keyExtractor={(item) => item.id}
           style={styles.container}
           showsVerticalScrollIndicator={false}
-          ListFooterComponent={<View style={{paddingVertical: 15}}/>}
+          ListFooterComponent={<View style={{paddingVertical: 70}}/>}
         />
 
-        {/* Modal para criar/editar empresa */}
         <Modal visible={isModalVisible} animationType="slide">
           <View style={styles.modalStyle}>
-            {/* Condição para exibir texto diferente com base no modalMode */}
             <Text>{modalMode === 'edit' ? 
               'Altere o nome da empresa abaixo:' : 
               'Digite o nome da empresa abaixo:'}

@@ -39,17 +39,13 @@ const LoginScreen = () => {
   const [rememberUser, setRememberUser] = useState(false);
   const navigation = useAppNavigation();
 
-  //TODO: login fake com uso de asyncStorage para lembrar usuário logado
   const handleSignIn = async () => {
-  // Lógica de login fake
   if (email === 'teddy@mail.com' && password === '1234') {
     if (rememberUser) {
-      // Armazenar dados do usuário no AsyncStorage
       await AsyncStorage.setItem('userToken', 'fake_token');
       await AsyncStorage.setItem('userEmail', email);
       await AsyncStorage.setItem('rememberUser', 'true');
     } else {
-      // Limpar dados do usuário no AsyncStorage se não quiser lembrar
       await AsyncStorage.removeItem('userToken');
       await AsyncStorage.removeItem('userEmail');
       await AsyncStorage.removeItem('rememberUser');
@@ -60,7 +56,6 @@ const LoginScreen = () => {
   }
 };
 
-   // Verifica se o usuário já está logado
   useEffect(() => {
   const checkUserLoggedIn = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
@@ -68,7 +63,6 @@ const LoginScreen = () => {
     const rememberUser = await AsyncStorage.getItem('rememberUser');
 
     if (userToken && userEmail && rememberUser === 'true') {
-      // Navegar para a tela inicial se o usuário estiver logado e 'rememberUser' estiver marcado
       navigation.navigate('Onboarding', { screen: 'Main' });
     }
   };
