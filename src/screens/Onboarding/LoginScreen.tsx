@@ -64,6 +64,7 @@ const LoginScreen = () => {
 
     if (userToken && userEmail && rememberUser === 'true') {
       navigation.navigate('Onboarding', { screen: 'Main' });
+      
     }
   };
 

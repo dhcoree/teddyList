@@ -36,7 +36,6 @@ export const PartnerProvider = ({ children }) => {
                 const data: Partner[] = await fetchPartnersData();
                 setPartners(data);
             } catch (error) {
-                // Tratar erros caso ocorra algum problema na requisição
             }
         }
 
@@ -45,7 +44,6 @@ export const PartnerProvider = ({ children }) => {
 
     const addPartner = (newPartner: Partner) => {
         setPartners(prevPartners => [...prevPartners, newPartner]);
-        // Lógica para salvar no backend ou AsyncStorage, se necessário
     };
 
     const updatePartner = (updatedPartner: Partner) => {
@@ -53,13 +51,11 @@ export const PartnerProvider = ({ children }) => {
             item.id === updatedPartner.id ? updatedPartner : item
         );
         setPartners(updatedPartners);
-        // Lógica para atualizar no backend ou AsyncStorage, se necessário
     };
 
     const deletePartner = (partnerId: string) => {
         const updatedPartners = partners.filter((item) => item.id !== partnerId);
         setPartners(updatedPartners);
-        // Lógica para excluir no backend ou AsyncStorage, se necessário
     };
 
     return (

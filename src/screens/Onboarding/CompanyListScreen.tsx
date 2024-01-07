@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FlatList, StyleSheet, Text, View, TouchableOpacity, Modal, Alert } from 'react-native';
 import { CompanyContext } from '../../context/CompanyContext';
 import Spacer from '../../components/Spacer';
@@ -7,6 +7,7 @@ import Button from '../../components/Button';
 import MyTextInput from '../../components/TextInput';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Container from '../../components/Container';
 
 const styles = StyleSheet.create({
   container: {
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     alignItems: 'center', 
   },
-  
+  searchStyle: { paddingHorizontal: 16 }
 });
 
 const CompanyListScreen: React.FC = () => {
@@ -64,6 +65,13 @@ const CompanyListScreen: React.FC = () => {
   const [selectedCompanyId, setSelectedCompanyId] = useState('');
   const [modalCollaboratorsCount, setModalCollaboratorsCount] = useState('');
   const navigation = useAppNavigation();
+
+  const [searchText, setSearchText] = useState('');
+
+  const filteredPartners = companies.filter(
+        (companies) =>
+            companies.companyName.toLowerCase().includes(searchText.toLowerCase())
+    );
 
   const handleCreate = () => {
     setModalMode('create');
@@ -87,20 +95,20 @@ const CompanyListScreen: React.FC = () => {
   const handleSave = () => {
     if (modalMode === 'create') {
       addCompany({
-        id: String(Date.now()), // Você pode usar um ID único aqui, dependendo do seu backend
+        id: String(Date.now()),
         companyName: modalCompanyName,
-        collaboratorsCount: modalCollaboratorsCount, // Defina o valor padrão
-        isActive: true, // Defina o valor padrão
-        createdAt: new Date().toISOString(), // Defina a data atual
+        collaboratorsCount: modalCollaboratorsCount,
+        isActive: true,
+        createdAt: new Date().toISOString(),
         lastSubmit: new Date().toISOString(),
       });
     } else if (modalMode === 'edit' && selectedCompanyId) {
       updateCompany({
         id: selectedCompanyId,
         companyName: modalCompanyName,
-        collaboratorsCount: modalCollaboratorsCount, // Você pode atualizar este valor se necessário
-        isActive: true, // Você pode atualizar este valor se necessário
-        createdAt: '', // Você pode atualizar este valor se necessário
+        collaboratorsCount: modalCollaboratorsCount,
+        isActive: true,
+        createdAt: '',
         lastSubmit: new Date().toISOString(),
       });
     }
@@ -140,8 +148,8 @@ const CompanyListScreen: React.FC = () => {
   }
 
   return (
-      <View style={styles.container}>
-        <View style={styles.headerContent}>
+    <Container>
+      <View style={styles.headerContent}>
           <TouchableOpacity onPress={handleCreate}>
             <View style={styles.textHeader}>
               <Icon name='office-building-cog-outline' size={16}/>
@@ -162,7 +170,16 @@ const CompanyListScreen: React.FC = () => {
         </View>
         
         <FlatList
-          data={companies}
+          data={filteredPartners}
+          ListHeaderComponent={
+            <View style={styles.searchStyle}>
+              <MyTextInput
+                  placeholder="Buscar empresa externa"
+                  value={searchText}
+                  onChangeText={setSearchText}
+              />
+            </View>
+          }
           renderItem={({ item }) => (
             <View style={styles.companyItem}>
               <Text style={styles.companyName}>{item.companyName}</Text>
@@ -215,7 +232,7 @@ const CompanyListScreen: React.FC = () => {
             </View>
           </View>
         </Modal>
-      </View>
+    </Container>
   );
 };
 

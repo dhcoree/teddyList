@@ -18,7 +18,7 @@ const MyTextInput = (props: TextInputProps) => {
 
 const dismissKeyboard = () => {
     if (textInputRef.current) {
-      textInputRef.current.blur(); // Remover o foco do TextInput
+        textInputRef.current.blur();
     }
 };
 

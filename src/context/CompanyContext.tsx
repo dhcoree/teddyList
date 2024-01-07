@@ -34,7 +34,6 @@ export const CompanyProvider  = ({ children }) => {
         const data: Company[] = await fetchCompanies();
         setCompanies(data);
       } catch (error) {
-        // Tratar erros caso ocorra algum problema na requisição
       }
     };
 
@@ -43,7 +42,6 @@ export const CompanyProvider  = ({ children }) => {
 
   const addCompany = (newCompany: Company) => {
     setCompanies(prevCompanies => [...prevCompanies, newCompany]);
-    // Lógica para salvar no backend ou AsyncStorage, se necessário
   };
 
   const updateCompany = (updatedCompany: Company) => {
@@ -51,13 +49,11 @@ export const CompanyProvider  = ({ children }) => {
       item.id === updatedCompany.id ? updatedCompany : item
     );
     setCompanies(updatedCompanies);
-    // Lógica para atualizar no backend ou AsyncStorage, se necessário
   };
 
   const deleteCompany = (companyId: string) => {
     const updatedCompanies = companies.filter((item) => item.id !== companyId);
     setCompanies(updatedCompanies);
-    // Lógica para excluir no backend ou AsyncStorage, se necessário
   };
 
   return (
