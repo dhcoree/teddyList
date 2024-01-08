@@ -4,8 +4,7 @@ import { RootNavigator } from './src/screens/Navigation';
 import { CompanyProvider } from './src/context/CompanyContext';
 
 const App = () => {
-  return ( 
-    //@ts-ignore
+  return (
     <CompanyProvider>
       <NavigationContainer>
         <RootNavigator />
