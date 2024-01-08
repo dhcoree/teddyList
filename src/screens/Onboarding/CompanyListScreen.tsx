@@ -184,6 +184,10 @@ const CompanyListScreen: React.FC = () => {
               
               <Spacer size={12}/>
 
+              <Text style={styles.textModalDetails}>Data de Criação: {selectedCompanyDetails.createdAt}</Text>
+
+              <Spacer size={12}/>
+
               <Button onPress={() => setIsDetailsModalVisible(false)}>Fechar</Button>
             </>
           )}
@@ -283,7 +287,7 @@ const CompanyListScreen: React.FC = () => {
           showsVerticalScrollIndicator={false}
           ListFooterComponent={<View style={styles.listFooterStyle}/>}
         />
-        
+
         {renderModalEditOrCreate()}
 
         {renderModalDetails()}
