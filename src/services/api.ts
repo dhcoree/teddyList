@@ -21,6 +21,7 @@ export const fetchPartnersData = async () => {
         const response = await axios.get(`${BASE_URL}/partners`);
         return response.data;
     } catch (error) {
-        throw new Error('Erro ao buscar dados dos parceiros');
+        console.error('Error fetching companies:', error)
+        throw error;
     }
 };
