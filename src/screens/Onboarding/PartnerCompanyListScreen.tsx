@@ -53,6 +53,25 @@ const styles = StyleSheet.create({
     },
     searchStyle: { paddingHorizontal: 16 },
     listFooterStyle: { paddingVertical: 70 },
+    containerDetailsModal: {
+        alignItems: 'center',
+        marginHorizontal: 20,
+        marginTop: 50,
+    },
+    text: {
+        textAlign: 'justify',
+        fontSize: 14,
+    },
+    textModalDetails: {
+        textAlign: 'justify',
+        fontSize: 14,
+    },
+    titleModalDetails: {
+        fontSize: 18,
+        fontWeight: '600',
+        textAlign: 'center',
+        color: '#1A261C'
+    },
 });
 
 const PartnerCompanyScreen: React.FC = () => {
@@ -211,25 +230,27 @@ const PartnerCompanyScreen: React.FC = () => {
         return (
             <Modal visible={isDetailsModalVisible} animationType="slide">
                 {selectedPartnerDetails && (
-                    <View style={styles.modalStyle}>
-                        <Text>Detalhes do Parceiro</Text>
+                    <Container>
+                        <View style={styles.containerDetailsModal}>
+                            <Text style={styles.titleModalDetails}>Detalhes do parceiro {selectedPartnerDetails.name}</Text>
 
-                        <Spacer size={12}/>
+                            <Spacer size={12}/>
 
-                        <Text>Nome: {selectedPartnerDetails.name} </Text>
+                            <Text style={styles.textModalDetails}>Nome: {selectedPartnerDetails.name} </Text>
 
-                        <Spacer size={12}/>
+                            <Spacer size={12}/>
 
-                        <Text>Descrição: {selectedPartnerDetails.description}</Text>
+                            <Text style={styles.textModalDetails}>Descrição: {selectedPartnerDetails.description}</Text>
 
-                        <Spacer size={12}/>
+                            <Spacer size={12}/>
 
-                        <Text>Data de Criação: {selectedPartnerDetails.createdAt}</Text>
+                            <Text style={styles.textModalDetails}>Data de Criação: {selectedPartnerDetails.createdAt}</Text>
 
-                        <Spacer size={12}/>
+                            <Spacer size={12}/>
 
-                        <Button onPress={() => setIsDetailsModalVisible(false)}>Fechar</Button>
-                    </View>
+                            <Button onPress={() => setIsDetailsModalVisible(false)}>Fechar</Button>
+                        </View>
+                    </Container>
                 )}
             </Modal>
         )

@@ -51,7 +51,17 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
   },
   searchStyle: { paddingHorizontal: 16 },
-  listFooterStyle: {paddingVertical: 70}
+  listFooterStyle: {paddingVertical: 70},
+  textModalDetails: {
+    textAlign: 'justify',
+    fontSize: 14,
+  },
+  titleModalDetails: {
+    fontSize: 18,
+    fontWeight: '600',
+    textAlign: 'center',
+    color: '#1A261C'
+  },
 });
 
 const CompanyListScreen: React.FC = () => {
@@ -162,15 +172,15 @@ const CompanyListScreen: React.FC = () => {
         <View style={styles.modalStyle}>
           {selectedCompanyDetails && (
             <>
-              <Text>Detalhes da Empresa</Text>
+              <Text style={styles.titleModalDetails}>Detalhes da empresa {selectedCompanyDetails.companyName}</Text>
 
               <Spacer size={12}/>
 
-              <Text>Nome: {selectedCompanyDetails.companyName}</Text>
+              <Text style={styles.textModalDetails}>Nome: {selectedCompanyDetails.companyName}</Text>
 
               <Spacer size={12}/>
 
-              <Text>Colaboradores: {selectedCompanyDetails.collaboratorsCount}</Text>
+              <Text style={styles.textModalDetails}>Colaboradores: {selectedCompanyDetails.collaboratorsCount}</Text>
               
               <Spacer size={12}/>
 
