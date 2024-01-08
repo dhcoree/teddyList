@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     alignItems: 'center', 
   },
-  searchStyle: { paddingHorizontal: 16 }
+  searchStyle: { paddingHorizontal: 16 },
+  listFooterStyle: {paddingVertical: 70}
 });
 
 const CompanyListScreen: React.FC = () => {
@@ -69,9 +70,17 @@ const CompanyListScreen: React.FC = () => {
   const [searchText, setSearchText] = useState('');
 
   const filteredPartners = companies.filter(
-      (companies) =>
-          companies.companyName.toLowerCase().includes(searchText.toLowerCase())
-    );
+    (companies) =>
+      companies.companyName.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  const [isDetailsModalVisible, setIsDetailsModalVisible] = useState(false);
+  const [selectedCompanyDetails, setSelectedCompanyDetails] = useState<any>(null);
+
+  const handleShowDetails = (companyDetails: any) => {
+    setSelectedCompanyDetails(companyDetails);
+    setIsDetailsModalVisible(true);
+  };
 
   const handleCreate = () => {
     setModalMode('create');
@@ -147,6 +156,61 @@ const CompanyListScreen: React.FC = () => {
     }
   }
 
+  const renderModalDetails = () => {
+    return (
+      <Modal visible={isDetailsModalVisible} animationType="slide">
+        <View style={styles.modalStyle}>
+          {selectedCompanyDetails && (
+            <>
+              <Text>Detalhes da Empresa</Text>
+
+              <Spacer size={12}/>
+
+              <Text>Nome: {selectedCompanyDetails.companyName}</Text>
+
+              <Spacer size={12}/>
+
+              <Text>Colaboradores: {selectedCompanyDetails.collaboratorsCount}</Text>
+              
+              <Spacer size={12}/>
+
+              <Button onPress={() => setIsDetailsModalVisible(false)}>Fechar</Button>
+            </>
+          )}
+        </View>
+      </Modal>
+    );
+  };
+
+  const renderModalEditOrCreate = () => {
+    return (
+      <Modal visible={isModalVisible} animationType="slide">
+          <View style={styles.modalStyle}>
+            <Text>{modalMode === 'edit' ? 
+              'Altere o nome da empresa abaixo:' : 
+              'Digite o nome da empresa abaixo:'}
+            </Text>
+            <Spacer size={12}/>
+            <MyTextInput
+              placeholder="Nome da Empresa"
+              value={modalCompanyName}
+              onChangeText={setModalCompanyName}
+            />
+            <MyTextInput
+              placeholder="Quantidade colaboradores"
+              keyboardType="numeric"
+              value={String(modalCollaboratorsCount)}
+              onChangeText={setModalCollaboratorsCount}
+            />
+            <View style={{flexDirection: 'row'}}>
+              <Button onPress={handleSave}>Salvar</Button>
+              <Button onPress={() => setIsModalVisible(false)}>Cancelar</Button>
+            </View>
+          </View>
+        </Modal>
+    );
+  };
+
   return (
     <Container>
       <View style={styles.headerContent}>
@@ -181,7 +245,8 @@ const CompanyListScreen: React.FC = () => {
             </View>
           }
           renderItem={({ item }) => (
-            <View style={styles.companyItem}>
+            <TouchableOpacity onPress={() => handleShowDetails(item)}>
+              <View style={styles.companyItem}>
               <Text style={styles.companyName}>{item.companyName}</Text>
               <Text>Colaboradores: {item.collaboratorsCount}</Text>
 
@@ -201,37 +266,17 @@ const CompanyListScreen: React.FC = () => {
               </View>
               
             </View>
+            </TouchableOpacity>
           )}
           keyExtractor={(item) => item.id}
           style={styles.container}
           showsVerticalScrollIndicator={false}
-          ListFooterComponent={<View style={{paddingVertical: 70}}/>}
+          ListFooterComponent={<View style={styles.listFooterStyle}/>}
         />
+        
+        {renderModalEditOrCreate()}
 
-        <Modal visible={isModalVisible} animationType="slide">
-          <View style={styles.modalStyle}>
-            <Text>{modalMode === 'edit' ? 
-              'Altere o nome da empresa abaixo:' : 
-              'Digite o nome da empresa abaixo:'}
-            </Text>
-            <Spacer size={12}/>
-            <MyTextInput
-              placeholder="Nome da Empresa"
-              value={modalCompanyName}
-              onChangeText={setModalCompanyName}
-            />
-            <MyTextInput
-              placeholder="Quantidade colaboradores"
-              keyboardType="numeric"
-              value={String(modalCollaboratorsCount)}
-              onChangeText={setModalCollaboratorsCount}
-            />
-            <View style={{flexDirection: 'row'}}>
-              <Button onPress={handleSave}>Salvar</Button>
-              <Button onPress={() => setIsModalVisible(false)}>Cancelar</Button>
-            </View>
-          </View>
-        </Modal>
+        {renderModalDetails()}
     </Container>
   );
 };

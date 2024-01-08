@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         marginHorizontal: 28 
     },
-    searchStyle: { paddingHorizontal: 16 }
+    searchStyle: { paddingHorizontal: 16 },
+    listFooterStyle: { paddingVertical: 70 },
 });
 
 const PartnerCompanyScreen: React.FC = () => {
@@ -68,6 +69,14 @@ const PartnerCompanyScreen: React.FC = () => {
     const [modalDescription, setModalDescription] = useState('');
 
     const [searchText, setSearchText] = useState('');
+
+    const [selectedPartnerDetails, setSelectedPartnerDetails] = useState<Partner | null>(null);
+    const [isDetailsModalVisible, setIsDetailsModalVisible] = useState(false);
+
+    const handleShowDetails = (partnerDetails: Partner) => {
+        setSelectedPartnerDetails(partnerDetails);
+        setIsDetailsModalVisible(true);
+    };
 
     useEffect(() => {
         const getPartnersData = async () => {
@@ -160,10 +169,71 @@ const PartnerCompanyScreen: React.FC = () => {
         await AsyncStorage.removeItem('rememberUser');
 
         navigation.navigate('Onboarding', {screen: 'Login'});
-    } catch (error) {
-        console.error('Erro ao fazer logoff:', error);
+        } catch (error) {
+            console.error('Erro ao fazer logoff:', error);
+        }
     }
-    }
+
+    const renderModalEditOrCreate = () => {
+        return (
+            <Modal visible={isModalVisible} animationType="slide">
+                <View style={styles.modalStyle}>
+                    <Text>{modalMode === 'edit' ? 
+                    'Altere o nome do parceiro abaixo:' : 
+                    'Digite o nome do parceiro abaixo:'}
+                    </Text>
+
+                    <Spacer size={12}/>
+
+                    <MyTextInput
+                    placeholder="Nome do Parceiro"
+                    value={modalPartnerCompanyName}
+                    onChangeText={setModalPartnerCompanyName}
+                    />
+
+                    <MyTextInput
+                    placeholder="Descrição"
+                    value={modalDescription}
+                    onChangeText={setModalDescription}
+                    />
+
+                    <View style={{flexDirection: 'row'}}>
+
+                    <Button onPress={handleSave}>Salvar</Button>
+                    <Button onPress={() => setIsModalVisible(false)}>Cancelar</Button>
+                    </View>
+                </View>
+            </Modal>
+        );
+    };
+
+    const renderModalDetails = () => {
+        return (
+            <Modal visible={isDetailsModalVisible} animationType="slide">
+                {selectedPartnerDetails && (
+                    <View style={styles.modalStyle}>
+                        <Text>Detalhes do Parceiro</Text>
+
+                        <Spacer size={12}/>
+
+                        <Text>Nome: {selectedPartnerDetails.name} </Text>
+
+                        <Spacer size={12}/>
+
+                        <Text>Descrição: {selectedPartnerDetails.description}</Text>
+
+                        <Spacer size={12}/>
+
+                        <Text>Data de Criação: {selectedPartnerDetails.createdAt}</Text>
+
+                        <Spacer size={12}/>
+
+                        <Button onPress={() => setIsDetailsModalVisible(false)}>Fechar</Button>
+                    </View>
+                )}
+            </Modal>
+        )
+    };
 
     return (
         <Container>
@@ -202,60 +272,37 @@ const PartnerCompanyScreen: React.FC = () => {
                     </View>
                 }
                 renderItem={({ item }) => (
-                    <View style={styles.partnerItem}>
-                        <Text style={styles.partnerName}>{item.name}</Text>
-                        <Text numberOfLines={3}>Descrição: {item.description}</Text>
+                    <TouchableOpacity onPress={() => handleShowDetails(item)}>
+                        <View style={styles.partnerItem}>
+                            <Text style={styles.partnerName}>{item.name}</Text>
+                            <Text numberOfLines={3}>Descrição: {item.description}</Text>
 
-                        <View style={styles.actionButtons}>
-                            <TouchableOpacity onPress={() => 
-                            handleEdit(item.id, item.name, item.description)}>
-                            <Text style={styles.textEdit}>Editar</Text>
-                            </TouchableOpacity>
+                            <View style={styles.actionButtons}>
+                                <TouchableOpacity onPress={() => 
+                                handleEdit(item.id, item.name, item.description)}>
+                                <Text style={styles.textEdit}>Editar</Text>
+                                </TouchableOpacity>
 
-                            <Spacer size={4} />
-                            <Text>|</Text>
-                            <Spacer size={4} />
+                                <Spacer size={4} />
+                                <Text>|</Text>
+                                <Spacer size={4} />
 
-                            <TouchableOpacity onPress={() => handleDelete(item.id)}>
-                            <Text style={styles.textExclude}>Excluir</Text>
-                            </TouchableOpacity>
+                                <TouchableOpacity onPress={() => handleDelete(item.id)}>
+                                <Text style={styles.textExclude}>Excluir</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                 )}
                 keyExtractor={(item) => item.id}
                 style={styles.container}
                 showsVerticalScrollIndicator={false}
-                ListFooterComponent={<View style={{ paddingVertical: 70 }} />}
+                ListFooterComponent={<View style={styles.listFooterStyle} />}
             />
 
-            <Modal visible={isModalVisible} animationType="slide">
-                <View style={styles.modalStyle}>
-                    <Text>{modalMode === 'edit' ? 
-                    'Altere o nome do parceiro abaixo:' : 
-                    'Digite o nome do parceiro abaixo:'}
-                    </Text>
+            {renderModalDetails()}
 
-                    <Spacer size={12}/>
-
-                    <MyTextInput
-                    placeholder="Nome do Parceiro"
-                    value={modalPartnerCompanyName}
-                    onChangeText={setModalPartnerCompanyName}
-                    />
-
-                    <MyTextInput
-                    placeholder="Descrição"
-                    value={modalDescription}
-                    onChangeText={setModalDescription}
-                    />
-
-                    <View style={{flexDirection: 'row'}}>
-
-                    <Button onPress={handleSave}>Salvar</Button>
-                    <Button onPress={() => setIsModalVisible(false)}>Cancelar</Button>
-                    </View>
-                </View>
-            </Modal>
+            {renderModalEditOrCreate()}
         </Container>
     );
 };
