@@ -21,9 +21,9 @@ type PartnerContextType = {
 
 export const PartnerContext = createContext<PartnerContextType>({
     partners: [],
-    addPartner: () => {},
-    updatePartner: () => {},
-    deletePartner: () => {},
+    addPartner: () => { },
+    updatePartner: () => { },
+    deletePartner: () => { },
 })
 
 //@ts-ignore

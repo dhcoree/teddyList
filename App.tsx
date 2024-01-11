@@ -8,7 +8,7 @@ const App = () => {
     <CompanyProvider>
       <NavigationContainer>
         <RootNavigator />
-      </NavigationContainer> 
+      </NavigationContainer>
     </CompanyProvider>
   );
 }

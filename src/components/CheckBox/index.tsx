@@ -23,21 +23,21 @@ const styles = StyleSheet.create({
 });
 
 type CheckBoxPropsType = {
-    label: string;
-    value?: boolean;
-    checked: boolean;
-    onChange?: (value: boolean) => void;
+  label: string;
+  value?: boolean;
+  checked: boolean;
+  onChange?: (value: boolean) => void;
 }
 
-const CheckBox = ({ 
-    label,
-    checked,
-    onChange = undefined,
-    value }: CheckBoxPropsType) => {
-    
-    const handleCheck = useCallback(() => {
-        onChange?.(!value);
-    }, [onChange, value])
+const CheckBox = ({
+  label,
+  checked,
+  onChange = undefined,
+  value }: CheckBoxPropsType) => {
+
+  const handleCheck = useCallback(() => {
+    onChange?.(!value);
+  }, [onChange, value])
 
   return (
     <TouchableOpacity style={styles.container} onPress={handleCheck}>

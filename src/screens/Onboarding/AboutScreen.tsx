@@ -28,16 +28,16 @@ const styles = StyleSheet.create({
 });
 
 const AboutScreen = () => {
-    return ( 
+    return (
         <Container>
             <ScrollView showsVerticalScrollIndicator={false}>
-                    <View style={styles.container}>
+                <View style={styles.container}>
 
                     <Text style={styles.title}>Descrição do projeto</Text>
 
                     <Spacer size={16} />
 
-                    <Text style={styles.text}>O projeto foi feito com react native padrão na versão <Text style={styles.code}>Node v18.17.0</Text>, criado com <Text style={styles.code}>npx react-native init</Text> e usando <Text style={styles.code}>Typescript</Text> para assegurar melhor a tipagem dos dados e as bibliotecas foram implementadas conforme a necessidade. No projeto foi incialmente criado a tela de login junto aos componentes como TextInput, Buttton e Checkbox. A partir disso foi criado a validação simples de logIn usando o checkbox para manter salvo o logIn no <Text style={styles.code}>AccountStorage</Text> entrando na tela inicial quando habilitado. 
+                    <Text style={styles.text}>O projeto foi feito com react native padrão na versão <Text style={styles.code}>Node v18.17.0</Text>, criado com <Text style={styles.code}>npx react-native init</Text> e usando <Text style={styles.code}>Typescript</Text> para assegurar melhor a tipagem dos dados e as bibliotecas foram implementadas conforme a necessidade. No projeto foi incialmente criado a tela de login junto aos componentes como TextInput, Buttton e Checkbox. A partir disso foi criado a validação simples de logIn usando o checkbox para manter salvo o logIn no <Text style={styles.code}>AccountStorage</Text> entrando na tela inicial quando habilitado.
                     </Text>
 
                     <Spacer size={10} />

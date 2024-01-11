@@ -18,7 +18,7 @@ const Container = ({ children }: ContainerPropsType) => {
     return (
         <View style={styles.container}>
             {children}
-        </View> 
+        </View>
     );
 };
 

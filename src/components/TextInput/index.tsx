@@ -16,11 +16,11 @@ const styles = StyleSheet.create({
 const MyTextInput = (props: TextInputProps) => {
     const textInputRef = useRef<TextInput>(null);
 
-const dismissKeyboard = () => {
-    if (textInputRef.current) {
-        textInputRef.current.blur();
-    }
-};
+    const dismissKeyboard = () => {
+        if (textInputRef.current) {
+            textInputRef.current.blur();
+        }
+    };
 
     return (
         <TouchableWithoutFeedback onPress={dismissKeyboard}>

@@ -29,27 +29,27 @@ const styles = StyleSheet.create({
         color: '#EB6625'
     },
     headerContent: {
-        flexDirection: 'row', 
+        flexDirection: 'row',
         justifyContent: 'space-between',
         paddingBottom: 8,
         marginHorizontal: 16
     },
     textHeader: {
-        flexDirection: 'row', 
+        flexDirection: 'row',
         alignItems: 'center',
     },
-    colorText: {color: "#1A261C"},
+    colorText: { color: "#1A261C" },
     actionButtons: {
         flexDirection: 'row',
         justifyContent: 'flex-end'
     },
-    textEdit: {color: "#396E9C"},
-    textExclude: {color: "#BF7E6F"},
-    modalStyle: { 
-        flex: 1, 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        marginHorizontal: 28 
+    textEdit: { color: "#396E9C" },
+    textExclude: { color: "#BF7E6F" },
+    modalStyle: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginHorizontal: 28
     },
     searchStyle: { paddingHorizontal: 16 },
     listFooterStyle: { paddingVertical: 70 },
@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
 
 const PartnerCompanyScreen: React.FC = () => {
     const {
-        addPartner, 
-        updatePartner, 
+        addPartner,
+        updatePartner,
         deletePartner } = useContext(PartnerContext);
     const navigation = useAppNavigation();
     const [partners, setPartners] = useState<Partner[]>([]);
@@ -123,7 +123,7 @@ const PartnerCompanyScreen: React.FC = () => {
     }, [])
 
     const handleEdit = useCallback((
-        partnerId: string, 
+        partnerId: string,
         partnerName: string,
         modalDescription: string
     ) => {
@@ -163,31 +163,31 @@ const PartnerCompanyScreen: React.FC = () => {
 
     const handleDelete = (partnerId: string) => {
         Alert.alert(
-        'Remover Parceiro',
-        'Tem certeza que deseja excluir esse parceiro?',
-        [
-            {
-            text: 'Cancelar',
-            style: 'cancel',
-            },
-            {
-            text: 'Confirmar',
-            onPress: () => {
-                deletePartner(partnerId);
-            },
-            },
-        ],
-        { cancelable: false }
+            'Remover Parceiro',
+            'Tem certeza que deseja excluir esse parceiro?',
+            [
+                {
+                    text: 'Cancelar',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Confirmar',
+                    onPress: () => {
+                        deletePartner(partnerId);
+                    },
+                },
+            ],
+            { cancelable: false }
         );
     };
 
     const handleLogOff = async () => {
-    try {
-        await AsyncStorage.removeItem('userToken');
-        await AsyncStorage.removeItem('userEmail');
-        await AsyncStorage.removeItem('rememberUser');
+        try {
+            await AsyncStorage.removeItem('userToken');
+            await AsyncStorage.removeItem('userEmail');
+            await AsyncStorage.removeItem('rememberUser');
 
-        navigation.navigate('Onboarding', {screen: 'Login'});
+            navigation.navigate('Onboarding', { screen: 'Login' });
         } catch (error) {
             console.error('Erro ao fazer logoff:', error);
         }
@@ -197,29 +197,29 @@ const PartnerCompanyScreen: React.FC = () => {
         return (
             <Modal visible={isModalVisible} animationType="slide">
                 <View style={styles.modalStyle}>
-                    <Text>{modalMode === 'edit' ? 
-                    'Altere o nome do parceiro abaixo:' : 
-                    'Digite o nome do parceiro abaixo:'}
+                    <Text>{modalMode === 'edit' ?
+                        'Altere o nome do parceiro abaixo:' :
+                        'Digite o nome do parceiro abaixo:'}
                     </Text>
 
-                    <Spacer size={12}/>
+                    <Spacer size={12} />
 
                     <MyTextInput
-                    placeholder="Nome do Parceiro"
-                    value={modalPartnerCompanyName}
-                    onChangeText={setModalPartnerCompanyName}
+                        placeholder="Nome do Parceiro"
+                        value={modalPartnerCompanyName}
+                        onChangeText={setModalPartnerCompanyName}
                     />
 
                     <MyTextInput
-                    placeholder="Descrição"
-                    value={modalDescription}
-                    onChangeText={setModalDescription}
+                        placeholder="Descrição"
+                        value={modalDescription}
+                        onChangeText={setModalDescription}
                     />
 
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{ flexDirection: 'row' }}>
 
-                    <Button onPress={handleSave}>Salvar</Button>
-                    <Button onPress={() => setIsModalVisible(false)}>Cancelar</Button>
+                        <Button onPress={handleSave}>Salvar</Button>
+                        <Button onPress={() => setIsModalVisible(false)}>Cancelar</Button>
                     </View>
                 </View>
             </Modal>
@@ -234,19 +234,19 @@ const PartnerCompanyScreen: React.FC = () => {
                         <View style={styles.containerDetailsModal}>
                             <Text style={styles.titleModalDetails}>Detalhes do parceiro {selectedPartnerDetails.name}</Text>
 
-                            <Spacer size={12}/>
+                            <Spacer size={12} />
 
                             <Text style={styles.textModalDetails}>Nome: {selectedPartnerDetails.name} </Text>
 
-                            <Spacer size={12}/>
+                            <Spacer size={12} />
 
                             <Text style={styles.textModalDetails}>Descrição: {selectedPartnerDetails.description}</Text>
 
-                            <Spacer size={12}/>
+                            <Spacer size={12} />
 
                             <Text style={styles.textModalDetails}>Data de Criação: {selectedPartnerDetails.createdAt}</Text>
 
-                            <Spacer size={12}/>
+                            <Spacer size={12} />
 
                             <Button onPress={() => setIsDetailsModalVisible(false)}>Fechar</Button>
                         </View>
@@ -261,7 +261,7 @@ const PartnerCompanyScreen: React.FC = () => {
             <View style={styles.headerContent}>
                 <TouchableOpacity onPress={handleCreate}>
                     <View style={styles.textHeader}>
-                        <Icon name='account-multiple-plus-outline' size={16}/>
+                        <Icon name='account-multiple-plus-outline' size={16} />
 
                         <Spacer size={4} />
 
@@ -269,16 +269,16 @@ const PartnerCompanyScreen: React.FC = () => {
                     </View>
                 </TouchableOpacity>
 
-                <Spacer size={10}/>
+                <Spacer size={10} />
 
                 <TouchableOpacity onPress={handleLogOff}>
                     <View style={styles.textHeader}>
                         <Text style={styles.colorText}>Sair</Text>
                         <Spacer size={4} />
-                        <Icon name='exit-to-app' size={16}/>
+                        <Icon name='exit-to-app' size={16} />
                     </View>
                 </TouchableOpacity>
-                
+
             </View>
 
             <FlatList
@@ -299,9 +299,9 @@ const PartnerCompanyScreen: React.FC = () => {
                             <Text numberOfLines={3}>Descrição: {item.description}</Text>
 
                             <View style={styles.actionButtons}>
-                                <TouchableOpacity onPress={() => 
-                                handleEdit(item.id, item.name, item.description)}>
-                                <Text style={styles.textEdit}>Editar</Text>
+                                <TouchableOpacity onPress={() =>
+                                    handleEdit(item.id, item.name, item.description)}>
+                                    <Text style={styles.textEdit}>Editar</Text>
                                 </TouchableOpacity>
 
                                 <Spacer size={4} />
@@ -309,7 +309,7 @@ const PartnerCompanyScreen: React.FC = () => {
                                 <Spacer size={4} />
 
                                 <TouchableOpacity onPress={() => handleDelete(item.id)}>
-                                <Text style={styles.textExclude}>Excluir</Text>
+                                    <Text style={styles.textExclude}>Excluir</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

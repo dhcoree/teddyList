@@ -24,8 +24,8 @@ interface ButtonProps extends TouchableOpacityProps {
 }
 
 const Button = ({
-    children, 
-    onPress, 
+    children,
+    onPress,
     ...rest
 }: ButtonProps) => {
     return (

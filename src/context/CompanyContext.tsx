@@ -19,13 +19,13 @@ type CompanyContextType = {
 
 export const CompanyContext = createContext<CompanyContextType>({
   companies: [],
-  addCompany: () => {},
-  updateCompany: () => {},
-  deleteCompany: () => {},
+  addCompany: () => { },
+  updateCompany: () => { },
+  deleteCompany: () => { },
 });
 
 //@ts-ignore
-export const CompanyProvider  = ({ children }) => {
+export const CompanyProvider = ({ children }) => {
   const [companies, setCompanies] = useState<Company[]>([]);
 
   useEffect(() => {

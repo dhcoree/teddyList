@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {Alert, Image, SafeAreaView, StyleSheet, View} from 'react-native';
+import { Alert, Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { useAppNavigation } from '../../utils/useAppNavigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyTextInput from '../../components/TextInput';
@@ -40,76 +40,76 @@ const LoginScreen = () => {
   const navigation = useAppNavigation();
 
   const handleSignIn = async () => {
-  if (email === 'teddy@mail.com' && password === '1234') {
-    if (rememberUser) {
-      await AsyncStorage.setItem('userToken', 'fake_token');
-      await AsyncStorage.setItem('userEmail', email);
-      await AsyncStorage.setItem('rememberUser', 'true');
-    } else {
-      await AsyncStorage.removeItem('userToken');
-      await AsyncStorage.removeItem('userEmail');
-      await AsyncStorage.removeItem('rememberUser');
-    }
-    navigation.navigate('Onboarding', { screen: 'Main' });
-  } else {
-    Alert.alert('Credenciais inválidas. Por favor, tente novamente.');
-  }
-};
-
-  useEffect(() => {
-  const checkUserLoggedIn = async () => {
-    const userToken = await AsyncStorage.getItem('userToken');
-    const userEmail = await AsyncStorage.getItem('userEmail');
-    const rememberUser = await AsyncStorage.getItem('rememberUser');
-
-    if (userToken && userEmail && rememberUser === 'true') {
+    if (email === 'teddy@mail.com' && password === '1234') {
+      if (rememberUser) {
+        await AsyncStorage.setItem('userToken', 'fake_token');
+        await AsyncStorage.setItem('userEmail', email);
+        await AsyncStorage.setItem('rememberUser', 'true');
+      } else {
+        await AsyncStorage.removeItem('userToken');
+        await AsyncStorage.removeItem('userEmail');
+        await AsyncStorage.removeItem('rememberUser');
+      }
       navigation.navigate('Onboarding', { screen: 'Main' });
-      
+    } else {
+      Alert.alert('Credenciais inválidas. Por favor, tente novamente.');
     }
   };
 
-  checkUserLoggedIn();
-}, [navigation])
+  useEffect(() => {
+    const checkUserLoggedIn = async () => {
+      const userToken = await AsyncStorage.getItem('userToken');
+      const userEmail = await AsyncStorage.getItem('userEmail');
+      const rememberUser = await AsyncStorage.getItem('rememberUser');
+
+      if (userToken && userEmail && rememberUser === 'true') {
+        navigation.navigate('Onboarding', { screen: 'Main' });
+
+      }
+    };
+
+    checkUserLoggedIn();
+  }, [navigation])
 
   return (
-      <View style={styles.container}>
-        <Image
-          style={styles.logo}
-          resizeMode='contain'
-          source={teddylogo}
+    <View style={styles.container}>
+      <Image
+        style={styles.logo}
+        resizeMode='contain'
+        source={teddylogo}
+      />
+
+      <Spacer size={12} />
+
+      <View style={styles.inputContainer}>
+        <MyTextInput
+          placeholder='e-mail'
+          value={email}
+          onChangeText={setEmail}
         />
 
-        <Spacer size={12}/>
+        <MyTextInput
+          secureTextEntry
+          placeholder='senha'
+          value={password}
+          onChangeText={setPassword}
+          maxLength={12}
+        />
 
-        <View style={styles.inputContainer}>
-          <MyTextInput
-            placeholder='e-mail'
-            value={email}
-            onChangeText={setEmail}
+        <View style={styles.checkbox}>
+          <CheckBox
+            value={rememberUser}
+            onChange={setRememberUser}
+            checked={rememberUser}
+            label='Lembrar usuário'
           />
-
-          <MyTextInput
-            secureTextEntry
-            placeholder='senha'
-            value={password}
-            onChangeText={setPassword}
-            maxLength={12}
-          />
-
-          <View style={styles.checkbox}>
-            <CheckBox
-              value={rememberUser}
-              onChange={setRememberUser}
-              checked={rememberUser}
-              label='Lembrar usuário'
-            />
-          </View>
         </View>
-
-        <Spacer size={18}/>
-
-        <Button onPress={handleSignIn}>Entrar</Button>
       </View>
+
+      <Spacer size={18} />
+
+      <Button onPress={handleSignIn}>Entrar</Button>
+    </View>
   );
 };
 

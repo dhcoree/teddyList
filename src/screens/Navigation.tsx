@@ -43,7 +43,7 @@ const MainTabNavigator = () => {
                     paddingBottom: 4,
                 },
             }}
-        >       
+        >
             <MainTab.Screen
                 name="PartnerListScreen"
                 component={PartnerListScreen}
@@ -54,9 +54,9 @@ const MainTabNavigator = () => {
                         <Icon
                             name="account-group-outline"
                             size={24}
-                        color={focused ? '#EB6625' : color}
+                            color={focused ? '#EB6625' : color}
                         />
-                ),
+                    ),
                 }}
             />
 
@@ -64,15 +64,15 @@ const MainTabNavigator = () => {
                 name="CompanyListScreen"
                 component={CompanyListScreen}
                 options={{
-                headerShown: false,
-                tabBarLabel: 'Empresas externas',
-                tabBarIcon: ({ color, focused }) => (
-                    <Icon
-                    name="office-building-outline"
-                    size={24}
-                    color={focused ? '#EB6625' : color}
-                    />
-                ),
+                    headerShown: false,
+                    tabBarLabel: 'Empresas externas',
+                    tabBarIcon: ({ color, focused }) => (
+                        <Icon
+                            name="office-building-outline"
+                            size={24}
+                            color={focused ? '#EB6625' : color}
+                        />
+                    ),
                 }}
             />
 
@@ -80,15 +80,15 @@ const MainTabNavigator = () => {
                 name="AboutScreen"
                 component={AboutScreen}
                 options={{
-                headerShown: false,
-                tabBarLabel: 'Sobre o Projeto',
-                tabBarIcon: ({ color, focused }) => (
-                    <Icon
-                    name="information-outline"
-                    size={24}
-                    color={focused ? '#EB6625' : color}
-                    />
-                ),
+                    headerShown: false,
+                    tabBarLabel: 'Sobre o Projeto',
+                    tabBarIcon: ({ color, focused }) => (
+                        <Icon
+                            name="information-outline"
+                            size={24}
+                            color={focused ? '#EB6625' : color}
+                        />
+                    ),
                 }}
             />
         </MainTab.Navigator>
