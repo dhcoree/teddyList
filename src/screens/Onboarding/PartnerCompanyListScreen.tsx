@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginHorizontal: 28
+        marginHorizontal: 28,
     },
     searchStyle: { paddingHorizontal: 16 },
     listFooterStyle: { paddingVertical: 70 },
@@ -216,7 +216,7 @@ const PartnerCompanyScreen: React.FC = () => {
                         onChangeText={setModalDescription}
                     />
 
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'row', marginHorizontal: 28, paddingHorizontal: 15 }}>
 
                         <Button onPress={handleSave}>Salvar</Button>
                         <Button onPress={() => setIsModalVisible(false)}>Cancelar</Button>

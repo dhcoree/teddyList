@@ -6,12 +6,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#fff',
         fontSize: 16,
+        textAlign: 'auto'
     },
     button: {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#EB6625',
-        paddingHorizontal: 46,
+        paddingHorizontal: 30,
         marginHorizontal: 16,
         borderRadius: 8,
         height: 40,
