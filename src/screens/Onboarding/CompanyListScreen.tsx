@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { FlatList, StyleSheet, Text, View, TouchableOpacity, Modal, Alert } from 'react-native';
+import { FlatList, StyleSheet, Text, View, TouchableOpacity, Modal, Alert, ScrollView } from 'react-native';
 import { CompanyContext } from '../../context/CompanyContext';
 import Spacer from '../../components/Spacer';
 import { useAppNavigation } from '../../utils/useAppNavigation';
@@ -171,25 +171,27 @@ const CompanyListScreen: React.FC = () => {
       <Modal visible={isDetailsModalVisible} animationType="slide">
         <View style={styles.modalStyle}>
           {selectedCompanyDetails && (
-            <>
-              <Text style={styles.titleModalDetails}>Detalhes da empresa {selectedCompanyDetails.companyName}</Text>
+            <View>
+              <ScrollView showsVerticalScrollIndicator={false}>
+                <Text style={styles.titleModalDetails}>Detalhes da empresa {selectedCompanyDetails.companyName}</Text>
 
-              <Spacer size={12} />
+                <Spacer size={12} />
 
-              <Text style={styles.textModalDetails}>Nome: {selectedCompanyDetails.companyName}</Text>
+                <Text style={styles.textModalDetails}>Nome: {selectedCompanyDetails.companyName}</Text>
 
-              <Spacer size={12} />
+                <Spacer size={12} />
 
-              <Text style={styles.textModalDetails}>Colaboradores: {selectedCompanyDetails.collaboratorsCount}</Text>
+                <Text style={styles.textModalDetails}>Colaboradores: {selectedCompanyDetails.collaboratorsCount}</Text>
 
-              <Spacer size={12} />
+                <Spacer size={12} />
 
-              <Text style={styles.textModalDetails}>Data de Criação: {selectedCompanyDetails.createdAt}</Text>
+                <Text style={styles.textModalDetails}>Data de Criação: {selectedCompanyDetails.createdAt}</Text>
 
-              <Spacer size={12} />
+                <Spacer size={12} />
 
-              <Button onPress={() => setIsDetailsModalVisible(false)}>Fechar</Button>
-            </>
+                <Button onPress={() => setIsDetailsModalVisible(false)}>Fechar</Button>
+              </ScrollView>
+            </View>
           )}
         </View>
       </Modal>

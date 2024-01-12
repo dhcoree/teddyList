@@ -41,6 +41,7 @@ const MainTabNavigator = () => {
                     paddingVertical: 4,
                     borderRadius: 18,
                     paddingBottom: 4,
+                    paddingRight: 6,
                 },
             }}
         >

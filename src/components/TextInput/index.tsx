@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { StyleSheet, TextInput, TextInputProps, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, TextInput, TextInputProps, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 const styles = StyleSheet.create({
     input: {
@@ -17,9 +17,7 @@ const MyTextInput = (props: TextInputProps) => {
     const textInputRef = useRef<TextInput>(null);
 
     const dismissKeyboard = () => {
-        if (textInputRef.current) {
-            textInputRef.current.blur();
-        }
+        Keyboard.dismiss();
     };
 
     return (

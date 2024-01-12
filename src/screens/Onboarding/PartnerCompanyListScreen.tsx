@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { Alert, FlatList, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { fetchPartnersData } from '../../services/api';
 import Spacer from '../../components/Spacer';
 import { useAppNavigation } from '../../utils/useAppNavigation';
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     containerDetailsModal: {
         alignItems: 'center',
         marginHorizontal: 20,
-        marginTop: 50,
+        marginVertical: 50
     },
     text: {
         textAlign: 'justify',
@@ -232,23 +232,25 @@ const PartnerCompanyScreen: React.FC = () => {
                 {selectedPartnerDetails && (
                     <Container>
                         <View style={styles.containerDetailsModal}>
-                            <Text style={styles.titleModalDetails}>Detalhes do parceiro {selectedPartnerDetails.name}</Text>
+                            <ScrollView showsVerticalScrollIndicator={false}>
+                                <Text style={styles.titleModalDetails}>Detalhes do parceiro {selectedPartnerDetails.name}</Text>
 
-                            <Spacer size={12} />
+                                <Spacer size={12} />
 
-                            <Text style={styles.textModalDetails}>Nome: {selectedPartnerDetails.name} </Text>
+                                <Text style={styles.textModalDetails}>Nome: {selectedPartnerDetails.name} </Text>
 
-                            <Spacer size={12} />
+                                <Spacer size={12} />
 
-                            <Text style={styles.textModalDetails}>Descrição: {selectedPartnerDetails.description}</Text>
+                                <Text style={styles.textModalDetails}>Descrição: {selectedPartnerDetails.description}</Text>
 
-                            <Spacer size={12} />
+                                <Spacer size={12} />
 
-                            <Text style={styles.textModalDetails}>Data de Criação: {selectedPartnerDetails.createdAt}</Text>
+                                <Text style={styles.textModalDetails}>Data de Criação: {selectedPartnerDetails.createdAt}</Text>
 
-                            <Spacer size={12} />
+                                <Spacer size={12} />
 
-                            <Button onPress={() => setIsDetailsModalVisible(false)}>Fechar</Button>
+                                <Button onPress={() => setIsDetailsModalVisible(false)}>Fechar</Button>
+                            </ScrollView>
                         </View>
                     </Container>
                 )}
